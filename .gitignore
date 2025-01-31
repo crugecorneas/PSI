@@ -1,2 +1,3 @@
 *.pyc
 p1_env/
+db.sqlite3
