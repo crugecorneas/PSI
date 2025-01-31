@@ -1,4 +1,31 @@
+
+
+1️⃣ Crear el entorno virtual:
+
+python3.11 -m venv p1_env
+2️⃣ Activar el entorno virtual:
+
+source p1_env/bin/activate  # En Linux/macOS  
+p1_env\Scripts\activate     # En Windows
+3️⃣ Instalar las dependencias dentro del entorno virtual:
+
 pip3 install -r requirements.txt
-(solo para la primera vez) python3.11 -m venv p1_env
-source p1_env/bin/activate
-prueba
+
+2️⃣ Asegurar que venv está instalado:
+sudo apt update
+sudo apt install python3.11-venv
+
+(si falla)
+Para Debian/Ubuntu:
+sudo apt update
+sudo apt install python3.11-dev libpq-dev gcc
+
+django-admin startproject mytestsite .1️⃣
+cd mytestsite
+python3 manage.py runserver
+
+
+
+deactivate — Exit out of the current Python virtual environment
+
+

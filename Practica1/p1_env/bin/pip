@@ -1,4 +1,4 @@
-#!/home/alumnos/e482884/Pings/Practica1/p1_env/bin/python
+#!/home/freddy/Documents/PSI/Pings/Practica1/p1_env/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys
