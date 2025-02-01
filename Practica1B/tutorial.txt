@@ -1,0 +1,107 @@
+
+
+1️⃣ Crear el entorno virtual:
+
+python3.11 -m venv p1_env
+2️⃣ Activar el entorno virtual:
+
+source p1_env/bin/activate  # En Linux/macOS  
+
+3️⃣ Instalar las dependencias dentro del entorno virtual:
+
+pip3 install -r requirements.txt
+
+2️⃣ Asegurar que venv está instalado:
+sudo apt update
+sudo apt install python3.11-venv
+
+(si falla)
+Para Debian/Ubuntu:
+sudo apt update
+sudo apt install python3.11-dev libpq-dev gcc
+
+
+continuar por aqui: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Django/skeleton_website
+django-admin startproject locallibrary .
+python3 manage.py runserver
+python3 manage.py startapp catalog
+
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+
+deactivate — Exit out of the current Python virtual environment
+
+
+si te pierdes: https://github.com/mdn/django-locallibrary-tutorial
+
+
+historial de comandos:
+422  git pull
+ 1423  git status
+ 1424  git commit -am "delete env"
+ 1425  git config --global user.email "freddysz@gmail.com"
+ 1426  git config --global user.name freddys
+ 1427  git commit -am "delete env"
+ 1428  git push
+ 1429  ssh-keygen 
+ 1430  cat ~/.ssh/id_rsa.pub 
+ 1431  git push
+ 1432  ls -lati
+ 1433  cd ..
+ 1434  ls -lati
+ 1435  vi .git/config 
+ 1436  git push
+ 1437  git pull
+ 1438  git push
+ 1439  git pull
+ 1440  git status
+ 1441  git commit -am "fix merge"
+ 1442  git pull
+ 1443  git push
+ 1444  git status
+ 1445  git add Practica1/manage.py 
+ 1446  git status
+ 1447  vi .gitignore 
+ 1448  git status
+ 1449  ls Practica1/mysite/
+ 1450  git add Practica1/mysite
+ 1451  git commit -am "added project mysite"
+ 1452  git push
+ 1453  ls
+ 1454  cd ..
+ 1455  ls
+ 1456  cd Pings/
+ 1457  ls
+ 1458  cd Practica1/
+ 1459  ls
+ 1460  find p1_env -exec ls {}
+ 1461  find p1_env --exec ls {}
+ 1462  find p1_env exec ls {}
+ 1463  find p1_env exec git rm  {} \;
+ 1464  git status
+ 1465  git commit -am "remove env"
+ 1466  git push
+ 1467  ls
+ 1468  git remove p1_env/bin/activate
+ 1469  git rm p1_env/bin/activate
+ 1470  git commit -am "remove env"
+ 1471  git rm p1_env/bin/activate.csh 
+ 1472  git rm p1_env/bin/activate.fish 
+ 1473  git rm p1_env/bin/pip
+ 1474  git rm p1_env/bin/pip3
+ 1475  git rm p1_env/bin/python
+ 1476  git rm p1_env/bin/python3
+ 1477  git commit -am "remove env"
+ 1478  git push
+ 1479  ls -lrt
+ 1480  rm -rf p1_env
+ 1481  ls
+ 1482  cat ../.gitignore 
+ 1483  python -m venv  p1_env
+ 1484  python3 -m venv  p1_env
+ 1485  which python
+ 1486  source p1_env/bin/activate
+ 1487  which python
+ 1488  pip install -r requirements.txt 
+ 1489  history
