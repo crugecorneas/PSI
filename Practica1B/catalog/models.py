@@ -1,38 +1,44 @@
-from django.db import models
+import uuid  # Required for unique book instances
+# Returns lower cased value of field
+from django.db.models.functions import Lower
+# Constrains fields to unique values
+from django.db.models import UniqueConstraint
+# Used in get_absolute_url() to get URL for specified ID
 from django.urls import reverse
+from django.db import models
 
-class MyModelName(models.Model):
+
+class Language(models.Model):
     """A typical class defining a model, derived from the Model class."""
 
     # Fields
-    my_field_name = models.CharField(max_length=20, help_text='Enter field documentation')
+    name = models.CharField(
+        max_length=20, help_text='Enter a language name'
+    )
     # …
 
     # Metadata
     class Meta:
-        ordering = ['-my_field_name']
+        ordering = ['name']
 
     # Methods
     def get_absolute_url(self):
         """Returns the URL to access a particular instance of MyModelName."""
-        return reverse('model-detail-view', args=[str(self.id)])
+        return reverse(
+            'language-detail', args=[str(self.id)]
+        )
 
     def __str__(self):
-        """String for representing the MyModelName object (in Admin site etc.)."""
-        return self.my_field_name
+        """Representing the MyModelName object (in Admin site etc)"""
+        return self.name
 
-
-from django.urls import reverse # Used in get_absolute_url() to get URL for specified ID
-
-from django.db.models import UniqueConstraint # Constrains fields to unique values
-from django.db.models.functions import Lower # Returns lower cased value of field
 
 class Genre(models.Model):
     """Model representing a book genre."""
     name = models.CharField(
         max_length=200,
         unique=True,
-        help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
+        help_text="Enter a book genre (e.g. Science Fiction, French...)"
     )
 
     def __str__(self):
@@ -48,7 +54,9 @@ class Genre(models.Model):
             UniqueConstraint(
                 Lower('name'),
                 name='genre_name_case_insensitive_unique',
-                violation_error_message = "Genre already exists (case insensitive match)"
+                violation_error_message=(
+                    "Genre already exists (case insensitive match)"
+                )
             ),
         ]
 
@@ -56,21 +64,33 @@ class Genre(models.Model):
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     title = models.CharField(max_length=200)
-    author = models.ForeignKey('Author', on_delete=models.RESTRICT, null=True)
-    # Foreign Key used because book can only have one author, but authors can have multiple books.
-    # Author as a string rather than object because it hasn't been declared yet in file.
+    language = models.ForeignKey(
+        'Language', on_delete=models.RESTRICT, null=True
+    )
+    author = models.ForeignKey(
+        'Author', on_delete=models.RESTRICT, null=True
+    )  # Foreign Key used because book can only have one author, but authors
+    # can have multiple books.
+    # Author as a string rather than object because it hasn't been declared yet
+    # in file.
 
     summary = models.TextField(
-        max_length=1000, help_text="Enter a brief description of the book")
-    isbn = models.CharField('ISBN', max_length=13,
-                            unique=True,
-                            help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn'
-                                      '">ISBN number</a>')
+        max_length=1000, help_text="Enter a brief description of the book"
+    )
+    isbn = models.CharField(
+        'ISBN', max_length=13, unique=True,
+        help_text=(
+            '13 Character <a href="https://www.isbn-international.org/content/'
+            'what-isbn">ISBN number</a>'
+        )
+    )
 
-    # ManyToManyField used because genre can contain many books. Books can cover many genres.
-    # Genre class has already been defined so we can specify the object above.
+    # ManyToManyField used cause genre can contain many books. Books can cover
+    # many genres. Genre class has already been defined so we can specify the
+    # object above.
     genre = models.ManyToManyField(
-        Genre, help_text="Select a genre for this book")
+        Genre, help_text="Select a genre for this book"
+    )
 
     def __str__(self):
         """String for representing the Model object."""
@@ -81,13 +101,14 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
 
-import uuid # Required for unique book instances
-
 class BookInstance(models.Model):
 
-    """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          help_text="Unique ID for this particular book across whole library")
+    # Model representing a specific copy of a book
+    # (i.e. that can be borrowed from the library)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4,
+        help_text="Unique ID for this particular book across whole library"
+    )
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
@@ -114,21 +135,21 @@ class BookInstance(models.Model):
         """String for representing the Model object."""
         return f'{self.id} ({self.book.title})'
 
+
 class Author(models.Model):
     """
     Modelo que representa un autor
     """
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField(null=True, blank=True)
-    date_of_death = models.DateField('Died', null=True, blank=True)
+    date_of_birth = models.DateField('birth', null=True, blank=True)
+    date_of_death = models.DateField('death', null=True, blank=True)
 
     def get_absolute_url(self):
         """
         Retorna la url para acceder a una instancia particular de un autor.
         """
         return reverse('author-detail', args=[str(self.id)])
-
 
     def __str__(self):
         """
