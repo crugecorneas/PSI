@@ -75,5 +75,4 @@ class AdditionalTest(TestCase):
     def test_genre_get_absolute_url(self):
         genre = Genre.objects.get(id=1)
         self.assertEqual(genre.get_absolute_url(), reverse('genre-detail', args=[str(genre.id)]))
-
     """
