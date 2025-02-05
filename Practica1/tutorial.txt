@@ -20,6 +20,11 @@ python3 manage.py startapp catalog
 python3 manage.py makemigrations
 python3 manage.py migrate
 
+tests:
+coverage erase
+coverage run --omit="*/test*" --source=catalog manage.py test catalog.tests
+coverage report -m -i
+
 
 deactivate — Exit out of the current Python virtual environment
 
