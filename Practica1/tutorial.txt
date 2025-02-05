@@ -28,6 +28,9 @@ coverage report -m -i
 
 deactivate — Exit out of the current Python virtual environment
 
+python3 manage.py test catalog.tests.test_first_week --verbosity=2
+
+git log
 
 si te pierdes: https://github.com/mdn/django-locallibrary-tutorial
 
