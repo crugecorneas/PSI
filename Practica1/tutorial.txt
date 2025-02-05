@@ -1,14 +1,5 @@
-
-
-1️⃣ Crear el entorno virtual:
-
 python3.11 -m venv p1_env
-2️⃣ Activar el entorno virtual:
-
-source p1_env/bin/activate  # En Linux/macOS  
-
-3️⃣ Instalar las dependencias dentro del entorno virtual:
-
+source p1_env/bin/activate
 pip3 install -r requirements.txt
 
 2️⃣ Asegurar que venv está instalado:
@@ -26,6 +17,8 @@ django-admin startproject locallibrary .
 python3 manage.py runserver
 python3 manage.py startapp catalog
 
+python3 manage.py makemigrations
+python3 manage.py migrate
 
 
 deactivate — Exit out of the current Python virtual environment
