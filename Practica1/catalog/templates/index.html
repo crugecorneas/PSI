@@ -14,6 +14,15 @@
     <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
     <li><strong>Authors:</strong> {{ num_authors }}</li>
     <li><strong>Genres:</strong> {{ num_genres }}</li>
-    <li><strong>Books containing the letter 'a' in the title:</strong> {{ num_books_with_a }}</li>
+    <li><strong>Books containing the letter 'a' in the title:</strong> 
+      {% if num_books_with_a %}
+          {% for book in num_books_with_a %}
+          
+              <a href="{{ book.get_absolute_url }}"> {{ book.title }},</a>
+          
+          {% endfor %}
+      {% else %}
+      <p>There are no books that match that description.</p>
+      {% endif %}</li>
   </ul>
 {% endblock %}
