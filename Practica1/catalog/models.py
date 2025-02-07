@@ -107,6 +107,9 @@ class Book(models.Model):
         return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
     display_genre.short_description = 'Genre'
 
+    class Meta:
+        ordering = ['title']
+
 
 class BookInstance(models.Model):
 
