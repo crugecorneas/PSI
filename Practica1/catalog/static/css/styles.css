@@ -11,4 +11,49 @@
     padding: 0;
     margin: 0;
   }
+
+  html, body {
+    height: 100%; /* Asegura que el cuerpo ocupe toda la altura disponible */
+    margin: 0;
+  }
   
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+
+  .btn-li {
+    padding: 10px 20px;
+    background-color: #ADD8E6; /* Fondo azul claro */
+    color: white;
+    border: 2px solid #007BFF; /* Contorno azul más oscuro */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-li:hover {
+    background-color: #87CEFA; /* Un tono azul más claro cuando pasas el ratón por encima */
+    border-color: #0056b3; /* Contorno más oscuro cuando está en hover */
+  }
+
+  .btn-lo {
+    padding: 10px 20px;
+    background-color: red; /* Fondo azul claro */
+    color: white;
+    border: 2px solid red; /* Contorno azul más oscuro */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-lo:hover {
+    background-color: lightcoral; /* Un tono azul más claro cuando pasas el ratón por encima */
+    border-color: darkred; /* Contorno más oscuro cuando está en hover */
+  }
