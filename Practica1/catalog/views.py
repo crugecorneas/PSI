@@ -96,10 +96,6 @@ class LoanedBooksStaffListView(PermissionRequiredMixin, generic.ListView):
         )   
     
 
-
-
-
-
 @login_required
 @permission_required('catalog.can_mark_returned', raise_exception=True)
 def renew_book_librarian(request, pk):
@@ -158,4 +154,35 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
         except Exception as e:
             return HttpResponseRedirect(
                 reverse("author-delete", kwargs={"pk": self.object.pk})
+            )
+
+class BookCreate(PermissionRequiredMixin, CreateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn','language','genre']
+    permission_required = 'catalog.add_book'
+    def form_valid(self, form):
+        isbn = form.cleaned_data.get('isbn')
+        if len(isbn) != 13:
+            form.add_error('isbn', 'El ISBN debe tener exactamente 13 caracteres.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+
+class BookUpdate(PermissionRequiredMixin, UpdateView):
+    model = Book
+    # Not recommended (potential security issue if more fields added)
+    fields = '__all__'
+    permission_required = 'catalog.change_book'
+
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
+    permission_required = 'catalog.delete_book'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("book-delete", kwargs={"pk": self.object.pk})
             )

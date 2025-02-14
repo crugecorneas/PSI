@@ -34,6 +34,10 @@ git log
 
 si te pierdes: https://github.com/mdn/django-locallibrary-tutorial
 
+Al hacer pull descartando los cambios:
+git reset --hard
+git pull
+
 
 historial de comandos:
 422  git pull
