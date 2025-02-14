@@ -38,6 +38,9 @@ Al hacer pull descartando los cambios:
 git reset --hard
 git pull
 
+TESTS:
+python3 manage.py test catalog.tests.test_models.AuthorModelTest
+
 
 historial de comandos:
 422  git pull
