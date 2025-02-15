@@ -28,4 +28,30 @@
   <p>
     You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
   </p>
+
+
+
+
+
+
+
+  
+  {% if user.is_authenticated %}
+  <p>
+    <form id="logout-form" method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <li><button type="submit" class="btn-lo">Logout </button></li>
+    </form>
+  </p>
+  {% else %}
+  <p>
+    <form action="{% url 'login' %}" method="get">
+      <li><button type="submit" class="btn-li">Login </button></li>
+    </form>
+  </p>
+  {% endif %}
+  <footer>
+    <p>Page created by: Freddy Serrano Zurita, Iñaki de la Fuente Simón &copy;</p>
+  </footer>
 {% endblock %}
+

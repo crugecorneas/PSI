@@ -51,7 +51,7 @@
           {% if perms.catalog.can_mark_returned %}
           <hr>
           <li>Staff</li>
-          <li><a href="{% url 'all-borrowed' %}">All Borrowed</a></li>
+          <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
           {% endif %}
           {% if perms.catalog.add_author %}
           <li><a href="{% url 'author-create' %}">Create author</a></li>
@@ -87,7 +87,7 @@
 </body>
 
 <footer>
-  <p>&copy; Freddy Serrano Zurita, Iñaki de la Fuente Simón</p>
+  <p>Page created by: Freddy Serrano Zurita, Iñaki de la Fuente Simón &copy;</p>
 </footer>
 
 </html>

@@ -28,7 +28,7 @@ class AdditionalTest(TestCase):
     def test_date_of_death_label(self):
         author = Author.objects.get(id=1)
         field_label = author._meta.get_field('date_of_death').verbose_name
-        self.assertEqual(field_label, 'death')
+        self.assertEqual(field_label, 'died')
 
     # Test __str__ method of Author
     def test_author_str(self):
@@ -55,11 +55,6 @@ class AdditionalTest(TestCase):
         book_instance = BookInstance.objects.first()
         self.assertEqual(str(book_instance),
                          f'{book_instance.id} (The Shining)')
-    """
-    # Test get_absolute_url for Language
-    def test_language_get_absolute_url(self):
-        author = Language.objects.get(id=1)
-        self.assertEqual(language.get_absolute_url(), reverse('language-detail', args=[str(language.id)]))
 
     # Test get_absolute_url for Author
     def test_author_get_absolute_url(self):
@@ -70,9 +65,3 @@ class AdditionalTest(TestCase):
     def test_book_get_absolute_url(self):
         book = Book.objects.get(id=1)
         self.assertEqual(book.get_absolute_url(), reverse('book-detail', args=[str(book.id)]))
-
-    # Test get_absolute_url for Genre
-    def test_genre_get_absolute_url(self):
-        genre = Genre.objects.get(id=1)
-        self.assertEqual(genre.get_absolute_url(), reverse('genre-detail', args=[str(genre.id)]))
-    """
