@@ -35,3 +35,14 @@ class AuthorModelTest(TestCase):
         author=Author.objects.get(id=1)
         #Esto también fallará si la urlconf no está definida.
         self.assertEquals(author.get_absolute_url(),'/catalog/author/1')
+
+    def test_object_name_is_last_name_comma_first_name(self):
+        author=Author.objects.get(id=1)
+        expected_object_name = '%s, %s' % (author.last_name, author.first_name)
+        self.assertEquals(expected_object_name,str(author))
+
+    def test_get_absolute_url(self):
+        author=Author.objects.get(id=1)
+        #Esto también fallará si la urlconf no está definida.
+        self.assertEquals(author.get_absolute_url(),'/catalog/author/1')
+

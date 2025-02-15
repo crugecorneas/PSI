@@ -14,7 +14,7 @@ class RenewBookFormTest(TestCase):
 
     def test_renew_form_date_field_help_text(self):
         form = RenewBookForm()
-        self.assertEqual(form.fields['renewal_date'].help_text,'Ingrese una fecha entre ahora y 4 semanas (predeterminado 3).')
+        self.assertEqual(form.fields['renewal_date'].help_text,'Enter a date between now and 4 weeks (default 3).')
 
     def test_renew_form_date_in_past(self):
         date = datetime.date.today() - datetime.timedelta(days=1)
