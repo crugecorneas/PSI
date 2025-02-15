@@ -14,8 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Language',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Enter a language name', max_length=20)),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(
+                    help_text='Enter a language name', max_length=20)),
             ],
             options={
                 'ordering': ['name'],
@@ -27,6 +29,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='book',
             name='language',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.RESTRICT, to='catalog.language'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.RESTRICT, to='catalog.language'),
         ),
     ]

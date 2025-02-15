@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='genre',
             name='name',
-            field=models.CharField(help_text='Enter a book genre (e.g. Science Fiction, French...)', max_length=200, unique=True),
+            field=models.CharField(
+                help_text='Enter a book genre (e.g. Science Fiction, French...)', max_length=200, unique=True),
         ),
     ]

@@ -10,7 +10,6 @@ from django.conf import settings
 from datetime import date
 
 
-
 class Language(models.Model):
     """A typical class defining a model, derived from the Model class."""
 
@@ -107,7 +106,7 @@ class Book(models.Model):
         """
         Creates a string for the Genre. This is required to display genre in Admin.
         """
-        return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
     display_genre.short_description = 'Genre'
 
     class Meta:
@@ -125,7 +124,8 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
-    borrower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    borrower = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -150,7 +150,6 @@ class BookInstance(models.Model):
     def is_overdue(self):
         """Determines if the book is overdue based on due date and current date."""
         return bool(self.due_back and date.today() > self.due_back)
-
 
     def __str__(self):
         """String for representing the Model object."""

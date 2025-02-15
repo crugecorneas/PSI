@@ -15,6 +15,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Author
 
+
 def index(request):
     """View function for home page of site."""
 
@@ -23,7 +24,8 @@ def index(request):
     num_instances = BookInstance.objects.all().count()
 
     # Available books (status = 'a')
-    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+    num_instances_available = BookInstance.objects.filter(
+        status__exact='a').count()
 
     # The 'all()' is implied by default.
     num_authors = Author.objects.count()
@@ -34,7 +36,6 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     num_visits += 1
     request.session['num_visits'] = num_visits
-
 
     context = {
         'num_books': num_books,
@@ -55,22 +56,20 @@ class BookListView(generic.ListView):
     paginate_by = 2
 
 
-
 class BookDetailView(generic.DetailView):
     model = Book
+
 
 class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 10
 
 
-
 class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-
-class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
@@ -95,8 +94,8 @@ class LoanedBooksStaffListView(PermissionRequiredMixin, generic.ListView):
             BookInstance.objects
             .filter(status__exact='o')
             .order_by('due_back')
-        )   
-    
+        )
+
 
 @login_required
 @permission_required('catalog.can_mark_returned', login_url='/accounts/login/')
@@ -138,11 +137,13 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
     initial = {'date_of_death': '11/11/2023'}
     permission_required = 'catalog.add_author'
 
+
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
     # Not recommended (potential security issue if more fields added)
     fields = '__all__'
     permission_required = 'catalog.change_author'
+
 
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
@@ -158,22 +159,27 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
                 reverse("author-delete", kwargs={"pk": self.object.pk})
             )
 
+
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn','language','genre']
+    fields = ['title', 'author', 'summary', 'isbn', 'language', 'genre']
     permission_required = 'catalog.add_book'
+
     def form_valid(self, form):
         isbn = form.cleaned_data.get('isbn')
         if len(isbn) != 13:
-            form.add_error('isbn', 'El ISBN debe tener exactamente 13 caracteres.')
+            form.add_error(
+                'isbn', 'El ISBN debe tener exactamente 13 caracteres.')
             return self.form_invalid(form)
         return super().form_valid(form)
+
 
 class BookUpdate(PermissionRequiredMixin, UpdateView):
     model = Book
     # Not recommended (potential security issue if more fields added)
     fields = '__all__'
     permission_required = 'catalog.change_book'
+
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book

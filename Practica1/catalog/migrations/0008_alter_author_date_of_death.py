@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='author',
             name='date_of_death',
-            field=models.DateField(blank=True, null=True, verbose_name='death'),
+            field=models.DateField(blank=True, null=True,
+                                   verbose_name='death'),
         ),
     ]

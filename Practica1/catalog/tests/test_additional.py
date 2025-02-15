@@ -59,9 +59,11 @@ class AdditionalTest(TestCase):
     # Test get_absolute_url for Author
     def test_author_get_absolute_url(self):
         author = Author.objects.get(id=1)
-        self.assertEqual(author.get_absolute_url(), reverse('author-detail', args=[str(author.id)]))
+        self.assertEqual(author.get_absolute_url(), reverse(
+            'author-detail', args=[str(author.id)]))
 
     # Test get_absolute_url for Book
     def test_book_get_absolute_url(self):
         book = Book.objects.get(id=1)
-        self.assertEqual(book.get_absolute_url(), reverse('book-detail', args=[str(book.id)]))
+        self.assertEqual(book.get_absolute_url(), reverse(
+            'book-detail', args=[str(book.id)]))
