@@ -1,0 +1,28 @@
+.numbered-list {
+    list-style-type: none; /* Elimina el estilo de lista predeterminado */
+    counter-reset: list-counter; /* Resetea el contador */
+  }
+  
+  .numbered-list li {
+    counter-increment: list-counter; /* Incrementa el contador para cada <li> */
+    position: relative;
+    padding-left: 35px; /* Añade espacio para los números */
+    margin-bottom: 10px; /* Espacio entre los elementos */
+  }
+  
+  .numbered-list li::before {
+    content: counter(list-counter) ". "; /* Muestra el número antes del texto */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px; /* Tamaño del número */
+    font-weight: bold; /* Negrita */
+    color: #4CAF50; /* Color del número (verde en este caso) */
+    background-color: #f1f1f1; /* Fondo del número */
+    padding: 5px;
+    border-radius: 50%; /* Hace el número redondo */
+    width: 30px; /* Ancho del círculo */
+    height: 30px; /* Alto del círculo */
+    text-align: center; /* Centra el número */
+    line-height: 30px; /* Centra el número verticalmente */
+  }

@@ -13,7 +13,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Author
 
 
 def index(request):
@@ -105,22 +104,17 @@ def renew_book_librarian(request, pk):
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-
-        # Create a form instance and populate it with data from the request (binding):
         form = RenewBookForm(request.POST)
 
-        # Check if the form is valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
             book_instance.due_back = form.cleaned_data['renewal_date']
             book_instance.save()
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('all-borrowed'))
-
-    # If this is a GET (or any other method) create the default form.
     else:
-        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        proposed_renewal_date = (datetime.date.today()
+                                 + datetime.timedelta(weeks=3))
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
 
     context = {
@@ -154,7 +148,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
         try:
             self.object.delete()
             return HttpResponseRedirect(self.success_url)
-        except Exception as e:
+        except Exception:
             return HttpResponseRedirect(
                 reverse("author-delete", kwargs={"pk": self.object.pk})
             )
@@ -163,7 +157,7 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'language', 'genre']
-    permission_required = 'catalog.add_book'
+    permission_required = 'catalog.can_mark_returned'
 
     def form_valid(self, form):
         isbn = form.cleaned_data.get('isbn')
@@ -190,7 +184,7 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
         try:
             self.object.delete()
             return HttpResponseRedirect(self.success_url)
-        except Exception as e:
+        except Exception:
             return HttpResponseRedirect(
                 reverse("book-delete", kwargs={"pk": self.object.pk})
             )

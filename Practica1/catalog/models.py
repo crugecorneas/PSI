@@ -104,7 +104,7 @@ class Book(models.Model):
 
     def display_genre(self):
         """
-        Creates a string for the Genre. This is required to display genre in Admin.
+        Creates a string for the Genre.
         """
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
     display_genre.short_description = 'Genre'
@@ -125,7 +125,8 @@ class BookInstance(models.Model):
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+        null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -148,7 +149,7 @@ class BookInstance(models.Model):
 
     @property
     def is_overdue(self):
-        """Determines if the book is overdue based on due date and current date."""
+        """Determines if the book is overdue"""
         return bool(self.due_back and date.today() > self.due_back)
 
     def __str__(self):
