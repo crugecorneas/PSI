@@ -17,11 +17,14 @@ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Cargar variables de entorno desde .env
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
 
 # Support env variables from .env file if defined
-env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
-load_dotenv(env_path)
+#env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
+#load_dotenv(env_path)
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,15 +35,20 @@ load_dotenv(env_path)
 #    'django-insecure-iha$pb1d&p1lt2b)7gx6y8or*1+w#$k4(yt8)l3n3r@+f6j81h'
 # )
 
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY',
-    'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
+#SECRET_KEY = os.environ.get(
+#    'DJANGO_SECRET_KEY',
+ #   'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 # DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+#DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+
+
+# Configuración de seguridad
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
 
 ALLOWED_HOSTS = []
@@ -95,17 +103,21 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
-db_from_env = dj_database_url.config(
-    default='postgres://alumnodb:alumnodb@localhost:5432/psi',
-    conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(
+#     default='postgres://alumnodb:alumnodb@localhost:5432/psi',
+#     conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('POSTGRESQL_URL'), conn_max_age=500)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -170,3 +182,11 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+
+
+# Configuración de pruebas
+if os.getenv('TESTING') == '1':
+    DATABASES['default'] = dj_database_url.config(default=os.getenv('POSTGRESQL_URL'), conn_max_age=500)
+else:
+    DATABASES['default'] = dj_database_url.config(default=os.getenv('NEON_URL'), conn_max_age=500)
