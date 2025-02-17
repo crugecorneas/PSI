@@ -1,7 +1,6 @@
 *.pyc
 p1_env/
 db.sqlite3
-requirements.txt
 README.md
 gitCommit.sh
 .env
