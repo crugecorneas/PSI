@@ -190,3 +190,6 @@ if os.getenv('TESTING') == '1':
     DATABASES['default'] = dj_database_url.config(default=os.getenv('POSTGRESQL_URL'), conn_max_age=500)
 else:
     DATABASES['default'] = dj_database_url.config(default=os.getenv('NEON_URL'), conn_max_age=500)
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
