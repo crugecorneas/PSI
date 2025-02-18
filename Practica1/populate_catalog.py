@@ -7,7 +7,7 @@ EPS-UAM 2025
 from catalog.models import Book, BookInstance, Language, Genre, Author
 import django
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'locallibrary.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Practica1.locallibrary.settings')
 
 django.setup()
 
