@@ -12,7 +12,7 @@ python manage.py shell <<EOF
 from catalog.models import Book
 if not Book.objects.exists():
     print("📚 Populating catalog...")
-    import populate_catalog
+    import populate_catalog    python3 populate_catalog.py
 else:
     print("✅ Database already populated. Skipping populate step.")
 EOF
