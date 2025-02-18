@@ -3,3 +3,4 @@ p1_env/
 db.sqlite3
 README.md
 gitCommit.sh
+.env
